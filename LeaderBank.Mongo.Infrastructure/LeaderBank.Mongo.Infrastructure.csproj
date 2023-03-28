@@ -16,4 +16,10 @@
     <ProjectReference Include="..\LeaderBank.Mongo.Domain\LeaderBank.Mongo.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
