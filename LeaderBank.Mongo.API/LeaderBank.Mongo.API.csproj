@@ -17,9 +17,4 @@
     <ProjectReference Include="..\LeaderBank.Mongo.Infrastructure\LeaderBank.Mongo.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="AutoMapper\" />
-  </ItemGroup>
-
 </Project>
