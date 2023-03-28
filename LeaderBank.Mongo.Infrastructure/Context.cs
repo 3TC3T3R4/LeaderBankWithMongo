@@ -14,14 +14,14 @@ namespace LeaderBank.Mongo.Infrastructure
             _database = cliente.GetDatabase(DBname);
         }
 
-        public IMongoCollection<CustomerEntity> Customer => _database.GetCollection<CustomerEntity>("Customers");
+        public IMongoCollection<CustomerEntity> Customers => _database.GetCollection<CustomerEntity>("Customers");
 
-        public IMongoCollection<AccountEntity> Account => _database.GetCollection<AccountEntity>("Accounts");
+        public IMongoCollection<AccountEntity> Accounts => _database.GetCollection<AccountEntity>("Accounts");
 
-        public IMongoCollection<CardEntity> Card => _database.GetCollection<CardEntity>("Cards");
+        public IMongoCollection<CardEntity> Cards => _database.GetCollection<CardEntity>("Cards");
 
-        public IMongoCollection<TransactionEnitity> Transaction => _database.GetCollection<TransactionEnitity>("Transactions");
+        public IMongoCollection<TransactionEntity> Transactions => _database.GetCollection<TransactionEntity>("Transactions");
 
-        public IMongoCollection<AdvisorEntity> Advisor => _database.GetCollection<AdvisorEntity>("Advisors");
+        public IMongoCollection<AdvisorEntity> Advisors => _database.GetCollection<AdvisorEntity>("Advisors");
     }
 }

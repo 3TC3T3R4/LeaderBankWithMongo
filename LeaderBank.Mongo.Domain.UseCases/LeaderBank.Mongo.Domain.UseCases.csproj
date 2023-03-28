@@ -10,9 +10,4 @@
     <ProjectReference Include="..\LeaderBank.Mongo.Domain\LeaderBank.Mongo.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Gateway\Repositories\" />
-    <Folder Include="UseCases\" />
-  </ItemGroup>
-
 </Project>
