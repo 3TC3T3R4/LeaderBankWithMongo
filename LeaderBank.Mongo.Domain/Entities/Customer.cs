@@ -1,20 +1,16 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeaderBank.Mongo.Infrastructure.Entities
+namespace LeaderBank.Mongo.Domain.Entities
 {
-    public class CustomerEntity
+    public class Customer
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
-        public string Id_Mongo { get; set; }
-
         public string Customer_Id { get; set; }
-        public string Id_Advisor { get; set; }
+        public  string Id_Advisor { get; set; }
+        
         public string Names { get; set; }
 
         public string Surnames { get; set; }
@@ -32,7 +28,6 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         public string Gender { get; set; }
         public bool State { get; set; }
 
-        
 
 
     }
