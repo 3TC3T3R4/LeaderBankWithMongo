@@ -1,7 +1,11 @@
 using AutoMapper.Data;
 using LeaderBank.Mongo.API.AutoMapper;
+using LeaderBank.Mongo.Domain.UseCases.Gateway;
+using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
+using LeaderBank.Mongo.Domain.UseCases.UseCases;
 using LeaderBank.Mongo.Infrastructure;
 using LeaderBank.Mongo.Infrastructure.Interfaces;
+using LeaderBank.Mongo.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(config => config.AddDataReaderMapping(), typeof(ConfigurationProfile));
 
-
+builder.Services.AddScoped<IAdvisorUseCase, AdvisorUseCase>();
+builder.Services.AddScoped<IAdvisorRepository, AdvisorRepository>();
 
 builder.Services.AddSingleton<IContext>(provider => new Context(builder.Configuration.GetConnectionString("urlConnection"), "LeaderBank"));
 
