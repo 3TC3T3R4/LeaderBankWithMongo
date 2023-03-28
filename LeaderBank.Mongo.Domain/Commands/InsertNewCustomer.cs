@@ -16,9 +16,9 @@ namespace LeaderBank.Mongo.Domain.Commands
 
         public string Surnames { get; set; }
 
-        public string Addres { get; set; }
+        public string Address { get; set; }
 
-        public string Emainl { get; set; }
+        public string Email { get; set; }
 
         public string Phone { get; set; }
 
