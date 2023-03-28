@@ -11,6 +11,8 @@ namespace LeaderBank.Mongo.API.AutoMapper
         {
             CreateMap<NewTransaction, Transaction>().ReverseMap();
             CreateMap<TransactionEntity, Transaction>().ReverseMap();
+            CreateMap<InsertNewCustomer, Customer>().ReverseMap();
+            CreateMap<CustomerEntity, Customer>().ReverseMap();
 
 
         }

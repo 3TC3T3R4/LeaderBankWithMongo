@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using LeaderBank.Mongo.Domain.Commands;
+using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.UseCases;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +24,7 @@ namespace LeaderBank.Mongo.API.Controllers
         [HttpGet]
         public async Task<List<Customer>> Get_List_Customer()
         {
-            return await _customerUseCase.GetListClustomers();
+            return await _customerUseCase.GetListCustomers();
         }
 
         [HttpPost]
