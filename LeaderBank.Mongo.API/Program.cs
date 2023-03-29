@@ -20,6 +20,9 @@ builder.Services.AddAutoMapper(config => config.AddDataReaderMapping(), typeof(C
 builder.Services.AddScoped<IAdvisorUseCase, AdvisorUseCase>();
 builder.Services.AddScoped<IAdvisorRepository, AdvisorRepository>();
 
+builder.Services.AddScoped<ICardUseCase, CardUseCase>();
+builder.Services.AddScoped<ICardRepository, CardRepository>();
+
 builder.Services.AddSingleton<IContext>(provider => new Context(builder.Configuration.GetConnectionString("urlConnection"), "LeaderBank"));
 
 var app = builder.Build();

@@ -1,16 +1,13 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeaderBank.Mongo.Infrastructure.Entities
+namespace LeaderBank.Mongo.Domain.Entities
 {
-    public class CardEntity
+    public class Card
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
         public string Card_Id { get; set; }
         public string Id_Advisor { get; set; }
         public string NumberCard { get; set; }
