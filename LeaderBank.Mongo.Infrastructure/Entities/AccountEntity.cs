@@ -7,9 +7,11 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Account_Id { get; set; }
-
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
         public string Id_Customer { get; set; }
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
         public string Id_Card { get; set; }
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
         public string Id_Advisor { get; set; }
         public string AccountType { get; set; }
         public decimal Balance { get; set; }

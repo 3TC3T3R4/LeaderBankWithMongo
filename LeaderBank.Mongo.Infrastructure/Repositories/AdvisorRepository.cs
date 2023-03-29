@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
@@ -15,6 +16,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
     {
         private readonly IMongoCollection<AdvisorEntity> advisorCollection;
         private readonly IMongoCollection<CustomerEntity> customerCollection;
+        private readonly IMongoCollection<CardEntity> cardCollection;
 
         private readonly IMapper _mapper;
       
@@ -51,8 +53,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         }
 
         public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
-        {
-           
+        {          
            
             var advisors = await advisorCollection.Find(_ => true).ToListAsync();
 
@@ -81,14 +82,39 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             }
 
             return advisorWithCustomers;
+        }
 
+        public async Task<List<AdvisorWithCards>> GetListAdvisorWithCards(string idAdvisor) 
+        {
+            var advisor = await advisorCollection.Find(_ => true).ToListAsync();
+
+            var advisorWithCards = new List<AdvisorWithCards>();
+
+            foreach (var advisorp in advisor)
+
+            {
+                var card = await cardCollection.Find(c => c.Card_Id == idAdvisor).ToListAsync();
+
+                var advisorWithCard = new AdvisorWithCards
+                {
+                    Advisor_Id = advisorp.Advisor_Id,
+                    Names = advisorp.Names,
+                    SurNames = advisorp.Surnames,
+                    Address = advisorp.Address,
+                    Email = advisorp.Email,
+                    Phone = advisorp.Phone,
+                    Birthdate = advisorp.Birthdate,
+                    Gender = advisorp.Gender,
+                    Cards = _mapper.Map<List<Card>>(card)
+
+                };
+
+                advisorWithCards.Add(advisorWithCard);
+            }
+
+            return advisorWithCards;
 
         }
+
     }
-
-
-
-
-
-
 }
