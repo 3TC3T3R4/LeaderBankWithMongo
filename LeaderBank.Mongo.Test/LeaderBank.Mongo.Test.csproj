@@ -23,12 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AccountTest\" />
-    <Folder Include="CustomerTest\" />
-    <Folder Include="TransactionTest\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LeaderBank.Mongo.Domain.UseCases\LeaderBank.Mongo.Domain.UseCases.csproj" />
     <ProjectReference Include="..\LeaderBank.Mongo.Infrastructure\LeaderBank.Mongo.Infrastructure.csproj" />
   </ItemGroup>
