@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Commands;
 using LeaderBank.Mongo.Domain.Entities;
-using LeaderBank.Mongo.Domain.UseCases;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
+using LeaderBank.Mongo.Domain.UseCases.Gateway;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeaderBank.Mongo.API.Controllers
@@ -24,6 +25,12 @@ namespace LeaderBank.Mongo.API.Controllers
         public async Task<List<Customer>> Get_List_Customer()
         {
             return await _customerUseCase.GetListCustomers();
+        }
+
+        [HttpGet("Complete/{id}")]
+        public async Task<CustomerComplete> Get_Customer_Complete(string id)
+        {
+            return await _customerUseCase.GetCustomerCompleteByIdAsync(id);
         }
 
         [HttpPost]

@@ -14,7 +14,7 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         public string AccountType { get; set; }
         public decimal Balance { get; set; }
         public DateTime OpenDate { get; set; }
-        public DateTime CloseDate { get; set; }
+        public DateTime? CloseDate { get; set; }
         public decimal ManagementCost { get; set; }
         public bool AccountState { get; set; }
     }

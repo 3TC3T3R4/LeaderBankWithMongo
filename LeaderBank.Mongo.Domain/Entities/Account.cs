@@ -9,7 +9,7 @@
         public string AccountType { get; set; }
         public decimal Balance { get; set; }
         public DateTime OpenDate { get; set; }
-        public DateTime CloseDate { get; set; }
+        public DateTime? CloseDate { get; set; }
         public decimal ManagementCost { get; set; }
         public bool AccountState { get; set; }
 
@@ -24,7 +24,6 @@
             if (Id_Advisor == null) return false;
             if (AccountType == null) return false;
             if (OpenDate == null) return false;
-            if (CloseDate == null) return false;
             if (AccountState == false) return false;
             return true;
         }
@@ -32,7 +31,7 @@
         public static Account SetDetailsAccount(Account account)
         {
             account.OpenDate = DateTime.Now;
-            account.CloseDate = DateTime.Now;
+            account.CloseDate = null;
             account.AccountState = true;
             return account;
         }

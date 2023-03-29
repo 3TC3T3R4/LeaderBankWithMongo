@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Infrastructure.Entities;
 using LeaderBank.Mongo.Infrastructure.Interfaces;
 using MongoDB.Driver;
-using System.Transactions;
 
 namespace LeaderBank.Mongo.Infrastructure.Repositories
 {
@@ -28,6 +28,11 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             var listCustomer = customer.ToEnumerable().Select(client => _mapper.Map<Customer>(client)).ToList();
 
             return listCustomer;
+        }
+
+        public Task<CustomerComplete> GetCustomerCompleteByIdAsync(string id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Customer> InsertCustomerAsync(Customer customer)

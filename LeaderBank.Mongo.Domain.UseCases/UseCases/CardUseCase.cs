@@ -1,11 +1,6 @@
 ﻿using LeaderBank.Mongo.Domain.Entities;
-using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Domain.UseCases.Gateway;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 
 namespace LeaderBank.Mongo.Domain.UseCases.UseCases
 {

@@ -11,8 +11,10 @@ namespace LeaderBank.Mongo.API.AutoMapper
         {
             CreateMap<NewTransaction, Transaction>().ReverseMap();
             CreateMap<TransactionEntity, Transaction>().ReverseMap();
+
             CreateMap<NewAdvisor, Advisor>().ReverseMap();
             CreateMap<AdvisorEntity, Advisor>().ReverseMap();
+
             CreateMap<NewCard, Card>().ReverseMap();
             CreateMap<CardEntity, Card>().ReverseMap();
 
@@ -21,8 +23,6 @@ namespace LeaderBank.Mongo.API.AutoMapper
 
             CreateMap<InsertNewCustomer, Customer>().ReverseMap();
             CreateMap<CustomerEntity, Customer>().ReverseMap();
-
-
         }
     }
 }
