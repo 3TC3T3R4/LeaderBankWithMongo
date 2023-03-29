@@ -5,11 +5,13 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBank.Mongo.API", "LeaderBank.Mongo.API.csproj", "{FAE9CE46-53AC-4C5C-8267-09988EA96A58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBank.Mongo.Domain", "..\LeaderBank.Mongo.Domain\LeaderBank.Mongo.Domain.csproj", "{94304827-4EA1-4A21-95D0-A7B22D69C28D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBank.Mongo.Domain", "..\LeaderBank.Mongo.Domain\LeaderBank.Mongo.Domain.csproj", "{94304827-4EA1-4A21-95D0-A7B22D69C28D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBank.Mongo.Domain.UseCases", "..\LeaderBank.Mongo.Domain.UseCases\LeaderBank.Mongo.Domain.UseCases.csproj", "{7C9EFFD2-6549-4733-A36F-D83F5B1D8674}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBank.Mongo.Domain.UseCases", "..\LeaderBank.Mongo.Domain.UseCases\LeaderBank.Mongo.Domain.UseCases.csproj", "{7C9EFFD2-6549-4733-A36F-D83F5B1D8674}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBank.Mongo.Infrastructure", "..\LeaderBank.Mongo.Infrastructure\LeaderBank.Mongo.Infrastructure.csproj", "{8FC0D5C3-CEDD-481A-A4C8-C6800CD86DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBank.Mongo.Infrastructure", "..\LeaderBank.Mongo.Infrastructure\LeaderBank.Mongo.Infrastructure.csproj", "{8FC0D5C3-CEDD-481A-A4C8-C6800CD86DCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBank.Mongo.Test", "..\LeaderBank.Mongo.Test\LeaderBank.Mongo.Test.csproj", "{DC4DE07B-1F5D-4779-9D1B-24DDFF4F48D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8FC0D5C3-CEDD-481A-A4C8-C6800CD86DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC0D5C3-CEDD-481A-A4C8-C6800CD86DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC0D5C3-CEDD-481A-A4C8-C6800CD86DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4DE07B-1F5D-4779-9D1B-24DDFF4F48D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4DE07B-1F5D-4779-9D1B-24DDFF4F48D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4DE07B-1F5D-4779-9D1B-24DDFF4F48D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4DE07B-1F5D-4779-9D1B-24DDFF4F48D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
