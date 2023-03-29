@@ -1,4 +1,5 @@
 ﻿
+using LeaderBank.Mongo.Domain.Entities;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 
 namespace LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors
@@ -13,7 +14,7 @@ namespace LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors
         public string Phone { get; set; }
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
-        public List<CustomerComplete> Customers { get; set; }
+        public List<Entities.Customer> Customers { get; set; }
 
     }
 }
