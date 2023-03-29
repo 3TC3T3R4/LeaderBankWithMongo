@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Commands;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Infrastructure.Entities;
+using LeaderBank.Mongo.Infrastructure.Entities.Wrappers.CustomerComplete;
 
 namespace LeaderBank.Mongo.API.AutoMapper
 {
@@ -20,9 +22,13 @@ namespace LeaderBank.Mongo.API.AutoMapper
 
             CreateMap<NewAccount, Account>().ReverseMap();
             CreateMap<AccountEntity, Account>().ReverseMap();
+            CreateMap<AccountEntity, AccountComplete>().ReverseMap();
+            CreateMap<AccountCompleteEntity, AccountComplete>().ReverseMap();
 
             CreateMap<InsertNewCustomer, Customer>().ReverseMap();
             CreateMap<CustomerEntity, Customer>().ReverseMap();
+            CreateMap<CustomerEntity, CustomerComplete>().ReverseMap();
+            CreateMap<CustomerCompleteEntity, CustomerComplete>().ReverseMap();
         }
     }
 }

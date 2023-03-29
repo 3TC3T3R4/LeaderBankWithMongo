@@ -1,8 +1,14 @@
-﻿namespace LeaderBank.Mongo.Domain.Entities.Wrappers.Customer
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace LeaderBank.Mongo.Infrastructure.Entities.Wrappers.CustomerComplete
 {
-    public class CustomerComplete //with accounts
+    public class CustomerCompleteEntity
     {
+        [BsonId]
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE
         public string Customer_Id { get; set; }
+
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE
         public string Id_Advisor { get; set; }
         public string Names { get; set; }
         public string Surnames { get; set; }
@@ -13,6 +19,6 @@
         public string Occupation { get; set; }
         public string Gender { get; set; }
         public bool State { get; set; }
-        public List<AccountComplete> Accounts { get; set; }
+        public List<AccountEntity> Accounts { get; set; } = new();
     }
 }

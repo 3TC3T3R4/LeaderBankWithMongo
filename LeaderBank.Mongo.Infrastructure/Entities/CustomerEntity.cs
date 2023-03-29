@@ -8,6 +8,7 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
         public string Customer_Id { get; set; }
 
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id_Advisor { get; set; }
         public string Names { get; set; }
         public string Surnames { get; set; }

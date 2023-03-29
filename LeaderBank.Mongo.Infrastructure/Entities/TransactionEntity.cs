@@ -7,7 +7,8 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Transaction_Id { get; set; }
-        
+
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id_Account { get; set; }
         public string TransactionDate { get; set; }
         public string TransactionHour { get; set; }
@@ -18,6 +19,5 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         public decimal FinalBalance { get; set; }
         public string TransactionProcess { get; set; }
         public bool TransactionState { get; set; }
-
     }
 }
