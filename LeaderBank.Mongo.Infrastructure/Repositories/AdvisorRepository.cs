@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Infrastructure.Entities;
 using LeaderBank.Mongo.Infrastructure.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Configuration;
 
 namespace LeaderBank.Mongo.Infrastructure.Repositories
 {
@@ -41,6 +45,24 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             }
             return listAdvisor;
         }
+
+
+
+        public async Task<List<CustomerComplete>> GetListAdvisorWithCustomers()
+        {
+
+            
+
+
+
+
+        }
+
+
+
+
+
+
 
     }
 

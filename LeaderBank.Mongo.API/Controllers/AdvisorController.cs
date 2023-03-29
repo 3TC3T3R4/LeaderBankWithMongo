@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Commands;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,11 @@ namespace LeaderBank.Mongo.API.Controllers
         {
             return await _advisorUseCase.AddAdvisor(_mapper.Map<Advisor>(command));
         }
-
+      
+        [HttpGet]
+        public async Task<List<CustomerComplete>> Get_List_Advisor_With_Customers(string idAdvisor)
+        {
+            return await _advisorUseCase.GetListAdvisorWithCustomers(idAdvisor);
+        }
     }
 }
