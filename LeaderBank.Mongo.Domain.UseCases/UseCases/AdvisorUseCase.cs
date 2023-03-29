@@ -1,4 +1,5 @@
 ﻿using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
@@ -23,7 +24,7 @@ namespace LeaderBank.Mongo.Domain.UseCases.UseCases
         {
             return await _advisorRepository.GetListAdvisors();
         }
-        public async Task<List<CustomerComplete>> GetListAdvisorWithCustomers(string idAdvisor)
+        public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
         {
             return await _advisorRepository.GetListAdvisorWithCustomers(idAdvisor);
         }

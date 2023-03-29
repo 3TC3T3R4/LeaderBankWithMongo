@@ -14,11 +14,15 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
     public class AdvisorRepository : IAdvisorRepository
     {
         private readonly IMongoCollection<AdvisorEntity> advisorCollection;
+        private readonly IMongoCollection<CustomerEntity> customerCollection;
+
         private readonly IMapper _mapper;
+      
 
         public AdvisorRepository(IContext context, IMapper mapper)
         {
             advisorCollection = context.Advisors;
+            customerCollection = context.Customers;
             _mapper = mapper;
         }
 
@@ -46,24 +50,45 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             return listAdvisor;
         }
 
-
-
-        public async Task<List<CustomerComplete>> GetListAdvisorWithCustomers()
+        public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
         {
+           
+           
+            var advisors = await advisorCollection.Find(_ => true).ToListAsync();
 
-            
+            var advisorWithCustomers = new List<AdvisorWithCustomers>();
 
+            foreach (var advisorf in advisors)
 
+            {
+                var customer = await customerCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
+
+                var advisorWithCustomer = new AdvisorWithCustomers
+                {
+                    Advisor_Id = advisorf.Advisor_Id,
+                    Names = advisorf.Names,
+                    SurNames = advisorf.Surnames,
+                    Address = advisorf.Address,
+                    Email = advisorf.Email,
+                    Phone = advisorf.Phone,
+                    Birthdate = advisorf.Birthdate,
+                    Gender = advisorf.Gender,
+                    Customers = _mapper.Map<List<Customer>>(customer)
+
+            };
+
+                advisorWithCustomers.Add(advisorWithCustomer);
+            }
+
+            return advisorWithCustomers;
 
 
         }
-
-
-
-
-
-
-
     }
+
+
+
+
+
 
 }

@@ -1,4 +1,5 @@
 ﻿using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 
 namespace LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories
@@ -7,7 +8,7 @@ namespace LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories
     {
         Task<Advisor> AddAdvisor(Advisor advisor);
         Task<List<Advisor>> GetListAdvisors();
-        Task<List<CustomerComplete>> GetListAdvisorWithCustomers(string idAdvisor);
+        Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor);
 
     }
 }
