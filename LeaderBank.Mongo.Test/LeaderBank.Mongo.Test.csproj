@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="AccountTest\" />
-    <Folder Include="CardTest\" />
     <Folder Include="CustomerTest\" />
     <Folder Include="TransactionTest\" />
   </ItemGroup>
