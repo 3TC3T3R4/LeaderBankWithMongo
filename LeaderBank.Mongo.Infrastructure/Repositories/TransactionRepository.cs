@@ -11,18 +11,31 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
     public class TransactionRepository : ITransactionRepository
     {
         private readonly IMongoCollection<TransactionEntity> transactionCollection;
+        private readonly IMongoCollection<AccountEntity> accountCollection;
         private readonly IMapper _mapper;
 
         public TransactionRepository(IContext context, IMapper mapper)
         {
             transactionCollection = context.Transactions;
+            accountCollection = context.Accounts;
             _mapper = mapper;
         }
 
         public async Task<NewTransaction> CreateTransactionAsync(Transaction transaction)
         {
+            //verify that account exist
+            var accounts = await accountCollection.FindAsync(a => a.Account_Id == transaction.Id_Account);
+            var associatedAccount = accounts.FirstOrDefault() ?? throw new Exception("Account not found.");
+
+            //set values to transaction
             Transaction.SetDetailsTransaction(transaction);
+            Transaction.CalculateBalances(transaction, _mapper.Map<Account>(associatedAccount));
             Transaction.Validate(transaction);
+
+            //set and save new balance on account
+            associatedAccount.Balance = transaction.FinalBalance;
+            await accountCollection.ReplaceOneAsync(a => a.Account_Id == associatedAccount.Account_Id, associatedAccount);
+
             var transactionToCreate = _mapper.Map<TransactionEntity>(transaction);
             await transactionCollection.InsertOneAsync(transactionToCreate);
             return _mapper.Map<NewTransaction>(transaction);

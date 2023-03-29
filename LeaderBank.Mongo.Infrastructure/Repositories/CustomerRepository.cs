@@ -22,9 +22,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         {
 
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.State, true);
-
             var customer = await coleccion.FindAsync(filter);
-
             var listCustomer = customer.ToEnumerable().Select(client => _mapper.Map<Customer>(client)).ToList();
 
             return listCustomer;

@@ -65,10 +65,43 @@
         {
             transaction.TransactionDate = DateOnly.FromDateTime(DateTime.Now).ToString();
             transaction.TransactionHour = TimeOnly.FromDateTime(DateTime.Now).ToString();
-            transaction.OldBalance = transaction.Amount;
-            transaction.FinalBalance = transaction.Amount;
-            transaction.TransactionProcess = "Aprobada";
             transaction.TransactionState = true;
+            return transaction;
+        }
+
+        public static Transaction CalculateBalances(Transaction transaction, Account account)
+        {
+            transaction.OldBalance = account.Balance;
+
+            switch (transaction.TransactionType)
+            {
+                case "Deposito":
+                    transaction.FinalBalance = transaction.OldBalance + transaction.Amount;
+                    transaction.TransactionProcess = "Aprobada";
+                    break;
+                case "Pago":
+                    if (transaction.Amount <= transaction.OldBalance)
+                    {
+                        transaction.FinalBalance = transaction.OldBalance - transaction.Amount;
+                        transaction.TransactionProcess = "Aprobada";
+                    }
+                    else
+                    {
+                        throw new Exception("There isn't enough money.");
+                    }
+                    break;
+                case "Retiro":
+                    if (transaction.Amount <= transaction.OldBalance)
+                    {
+                        transaction.FinalBalance = transaction.OldBalance - transaction.Amount;
+                        transaction.TransactionProcess = "Aprobada";
+                    }
+                    else
+                    {
+                        throw new Exception("There isn't enough money.");
+                    }
+                    break;
+            }
             return transaction;
         }
     }
