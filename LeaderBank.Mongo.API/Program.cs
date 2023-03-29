@@ -1,6 +1,10 @@
 using AutoMapper.Data;
 using LeaderBank.Mongo.API.AutoMapper;
 using LeaderBank.Mongo.Domain.UseCases.Gateway;
+using LeaderBank.Mongo.Domain.UseCases.Gateway;
+using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
+using LeaderBank.Mongo.Domain.UseCases.UseCases;
+using LeaderBank.Mongo.Domain.UseCases;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Domain.UseCases.UseCases;
 using LeaderBank.Mongo.Infrastructure;
@@ -17,9 +21,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(config => config.AddDataReaderMapping(), typeof(ConfigurationProfile));
 
+builder.Services.AddScoped<IAdvisorUseCase, AdvisorUseCase>();
+builder.Services.AddScoped<IAdvisorRepository, AdvisorRepository>();
 builder.Services.AddScoped<ICustomerUseCase, CustomerUseCase>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
+builder.Services.AddScoped<ICardUseCase, CardUseCase>();
+builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<ITransactionUseCase, TransactionUseCase>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
