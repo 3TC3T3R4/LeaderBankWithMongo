@@ -46,7 +46,29 @@ namespace LeaderBank.Mongo.Test.TransactionTest
             Assert.Equal(transaction.Id_Account, result.Id_Account);
             
         }
-        
+
+        [Fact]
+        public async Task GetTransactionsAsync()
+        {
+            // Arrange
+            var transaction = new Transaction
+            {
+                Id_Account = "123456789",
+                TransactionType = "Deposito",
+                Description = "Deposito de 1000",
+                Amount = 1000
+            };
+
+            var transactionList = new List<Transaction> { transaction };
+            _mockTransactionRepository.Setup(x => x.GetTransactionsAsync()).ReturnsAsync(transactionList);
+
+            //Act
+            var result = await _mockTransactionRepository.Object.GetTransactionsAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.Equal(transactionList, result);
+        }
 
     }
 }
