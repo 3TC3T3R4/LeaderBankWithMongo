@@ -1,11 +1,15 @@
 ﻿using Castle.Core.Resource;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Infrastructure.Entities;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Numerics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,7 +56,7 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
             // Assert
             Assert.NotNull(result);
             Assert.Equal(advisorEntity.Names, result.Names);
-          
+
         }
 
         [Fact]
@@ -80,6 +84,75 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
             Assert.NotNull(result);
             Assert.Equal(advisorList, result);
         }
-        
+
+        [Fact]
+        public async Task GetAdvisorById()
+        {
+            // Arrange
+            var advisor = new Advisor
+            {
+                Names = "rola",
+                SurNames = "Test",
+                Address = "Test",
+                Email = "" +
+                ""
+            };
+        }
+
+        [Fact]
+        public async Task Get_List_Advisor_With_Customers()
+        {
+            //arrange
+            var advisor = new Advisor
+            {
+                Names = "Juan",
+                SurNames = "Perez",
+                Address = "Calle 1",
+                Email = "",
+                Phone = "123456789",
+                Birthdate = DateTime.Now,
+                Gender = "M"
+            };
+            var customer = new Customer
+            {
+                Customer_Id = "12345",
+                Id_Advisor = "12345",
+                Names = "rola",
+                Surnames = "Test",
+                Address = "Test",
+                Email = "",
+                Phone = "123456789",
+                Birthdate = DateTime.Now,
+                Occupation = "asesor",
+                Gender = "F",
+                State = true
+
+            };
+            var customerWithAdvisor = new AdvisorWithCustomers
+            {
+                Advisor_Id = "12345",
+                Names = "Juan",
+                SurNames = "Perez",
+                Address = "Calle 1",
+                Email = "",
+                Phone = "123456789",
+                Birthdate = DateTime.Now,
+                Gender = "M",
+                Customers = new List<Customer> { customer }
+
+            };
+
+            var listAdvisorWithCustomer = new List<AdvisorWithCustomers> { customerWithAdvisor };
+            _mockadvisorRepository.Setup(x => x.GetListAdvisorWithCustomers("1")).ReturnsAsync(listAdvisorWithCustomer);
+
+            //Act
+            var result = await _mockadvisorRepository.Object.GetListAdvisorWithCustomers("1");
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.Equal(listAdvisorWithCustomer, result);
+
+        }
     }
+
 }
