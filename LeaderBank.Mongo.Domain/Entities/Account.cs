@@ -13,7 +13,6 @@
         public decimal ManagementCost { get; set; }
         public bool AccountState { get; set; }
 
-        
         public Account() { }
 
         //validate account

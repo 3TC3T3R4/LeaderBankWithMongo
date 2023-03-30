@@ -10,5 +10,30 @@
         public DateTime? ExpirationDate { get; set; }
         public Boolean CardState { get; set; }
 
+        public Card() { }
+        public static void Validate(Card card)
+        {
+            if (card.Id_Advisor == null)
+            {
+                throw new ArgumentException("The account doesn't exist.");
+            }
+            if (card.NumberCard == null)
+            {
+                throw new ArgumentNullException("The card number is required.");
+            }
+            if (card.Cvc == null)
+            {
+                throw new ArgumentNullException("The CVC is required.");
+            }
+            if (card.EmissionDate == null)
+            {
+                throw new ArgumentNullException("The emission date is required.");
+            }
+            if (card.CardState == null)
+            {
+                throw new ArgumentNullException("The card state is required.");
+            }
+        }
+
     }
 }

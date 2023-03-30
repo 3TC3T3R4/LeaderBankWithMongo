@@ -30,6 +30,17 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             {
                 throw new Exception($"please add card information.");
             }
+            var cardToCreate = new Card
+            {
+                Id_Advisor = card.Id_Advisor,
+                NumberCard = card.NumberCard,
+                Cvc = card.Cvc,
+                EmissionDate = DateTime.Now,
+                ExpirationDate = null,
+                CardState = card.CardState,
+            };
+
+            Card.Validate(cardToCreate);
             return card;
 
         }
