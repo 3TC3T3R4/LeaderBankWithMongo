@@ -90,9 +90,34 @@ namespace LeaderBank.Mongo.Test.CustomerTest
             Assert.Equal(customerList, result);
         }
 
+
+        //crear test para GetCustomerCompleteByIdAsync
+        [Fact]
+        public async Task GetCustomerCompleteByIdAsync()
+        {
+            //Arrange
+
+            var customer = new Customer
+            {
+                Names = "rola",
+                Surnames = "Test",
+                Address = "Test",
+                Email = "",
+                Phone = "123456789",
+                Birthdate = DateTime.Now,
+                Occupation = "asesor",
+                Gender = "F",
+                State = true
+            };
+
+            var customerList = new List<Customer> { customer};
+
+
+
+
+
+
+        }      
        
-
-
-
     }
 }
