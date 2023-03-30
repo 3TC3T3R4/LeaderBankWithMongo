@@ -133,7 +133,58 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
 
         }
 
+        [Fact]
+        public async Task Get_List_Advisor_With_Cards()
+        {
+            //arrange
+            var advisor = new Advisor
+            {
+                Names = "Sara",
+                SurNames = "Rojas",
+                Address = "Calle 34",
+                Email = "saritahemochita@.com",
+                Phone = "874657",
+                Birthdate = DateTime.Now,
+                Gender = "Female"
+            };
+            var card = new Card
+            {
+                Card_Id = "12345",
+                Id_Advisor = "dsafasd3456",
+                NumberCard = "0000111",
+                Cvc = "034",
+                EmissionDate = DateTime.Now,
+               ExpirationDate = null,
+               CardState = true
 
+                
+
+            };
+            var cardWithAdvisor = new AdvisorWithCards
+            {
+                Advisor_Id = "12345",
+                Names = "Juan",
+                SurNames = "Perez",
+                Address = "Calle 1",
+                Email = "",
+                Phone = "123456789",
+                Birthdate = DateTime.Now,
+                Gender = "M",
+                Cards = new List<Card> { card }
+
+            };
+
+            var listAdvisorWithCard = new List<AdvisorWithCards> { cardWithAdvisor };
+            _mockadvisorRepository.Setup(x => x.GetListAdvisorWithCards("1")).ReturnsAsync(listAdvisorWithCard);
+
+            //Act
+            var result = await _mockadvisorRepository.Object.GetListAdvisorWithCards("1");
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.Equal(listAdvisorWithCard, result);
+
+        }
 
 
         [Fact]
