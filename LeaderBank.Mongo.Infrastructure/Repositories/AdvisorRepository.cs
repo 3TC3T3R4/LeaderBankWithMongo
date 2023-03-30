@@ -39,6 +39,19 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             {
                 throw new Exception($"please add advisor information.");
             }
+
+            var createAdvisor = new Advisor
+            {
+                Names = advisor.Names,
+                SurNames = advisor.SurNames,
+                Address = advisor.Address,
+                Email = advisor.Email,
+                Phone = advisor.Phone,
+                Birthdate = advisor.Birthdate,                
+                Gender = advisor.Gender               
+
+            };
+            Advisor.Validate(createAdvisor);
             return advisor;
         }
 
