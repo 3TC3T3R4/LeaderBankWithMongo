@@ -25,6 +25,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         {
             advisorCollection = context.Advisors;
             customerCollection = context.Customers;
+            cardCollection = context.Cards;
             _mapper = mapper;
         }
 
