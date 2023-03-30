@@ -94,7 +94,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             foreach (var advisorp in advisor)
 
             {
-                var card = await cardCollection.Find(c => c.Card_Id == idAdvisor).ToListAsync();
+                var card = await cardCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
 
                 var advisorWithCard = new AdvisorWithCards
                 {
