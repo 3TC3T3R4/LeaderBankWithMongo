@@ -1,13 +1,9 @@
-﻿using Castle.Core.Resource;
-using LeaderBank.Mongo.Domain.Entities;
+﻿using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Infrastructure.Entities;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LeaderBank.Mongo.Test.AdvisorTest
 {
@@ -52,7 +48,7 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
             // Assert
             Assert.NotNull(result);
             Assert.Equal(advisorEntity.Names, result.Names);
-          
+
         }
 
         [Fact]
@@ -80,6 +76,81 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
             Assert.NotNull(result);
             Assert.Equal(advisorList, result);
         }
-        
+
+        [Fact]
+        public async Task GetAdvisorCompleteByIdAsync()
+        {
+            // Arrange
+            var advisorComplete = new AdvisorComplete
+            {
+                Advisor_Id = "123456789",
+                Names = "Kevin",
+                SurNames = "Baquero",
+                Address = "Test",
+                Email = "kb@gmail.com",
+                Phone = "3005558899",
+                Birthdate = DateTime.Now,
+                Gender = "Male",
+                Customers = new List<CustomerComplete>
+                {
+                    new CustomerComplete
+                    {
+                        Customer_Id = "987654321",
+                        Id_Advisor = "123456789",
+                        Names = "Estevan",
+                        Surnames = "Tangarife",
+                        Address = "Test",
+                        Email = "",
+                        Phone = "123456789",
+                        Birthdate = DateTime.Now,
+                        Occupation = "Developer",
+                        Gender = "Male",
+                        State = true,
+                        Accounts = new List<AccountComplete>
+                        {
+                            new AccountComplete
+                            {
+                                Account_Id = "9999999",
+                                Id_Customer = "987654321",
+                                Id_Card = "555555",
+                                Id_Advisor = "123456789",
+                                AccountType = "Ahorros",
+                                Balance = 1000,
+                                ManagementCost = 1000,
+                                Card = new Card
+                                {
+                                    Card_Id = Guid.NewGuid().ToString(),
+                                    Id_Advisor = "123456789",
+                                    NumberCard = "777777777",
+                                    Cvc = "123",
+                                    EmissionDate = DateTime.Now,
+                                    ExpirationDate = DateTime.Now,
+                                    CardState = true
+                                },
+                                Transactions = new List<Transaction>
+                                {
+                                    new Transaction
+                                    {
+                                        Id_Account = "9999999",
+                                        TransactionType = "Deposito",
+                                        Description = "Deposito de 1000",
+                                        Amount = 1000
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            _mockadvisorRepository.Setup(a => a.GetAdvisorCompleteByIdAsync("123456789")).ReturnsAsync(advisorComplete);
+
+            // Act
+            var result = await _mockadvisorRepository.Object.GetAdvisorCompleteByIdAsync("123456789");
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(advisorComplete, result);
+        }
     }
 }
