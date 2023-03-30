@@ -57,12 +57,11 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
         {
 
-            var advisors = await advisorCollection.Find(_ => true).ToListAsync();
+            var advisors = await advisorCollection.Find(_ => true).ToListAsync() ?? throw new Exception($"please add advisor information.");
 
             var advisorWithCustomers = new List<AdvisorWithCustomers>();
 
             foreach (var advisorf in advisors)
-
             {
                 var customer = await customerCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
 
@@ -78,10 +77,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
                     Gender = advisorf.Gender,
                     Customers = _mapper.Map<List<Customer>>(customer)
                 };
-
                 advisorWithCustomers.Add(advisorWithCustomer);
             }
-
             return advisorWithCustomers;
         }
 
@@ -92,9 +89,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             var advisorWithCards = new List<AdvisorWithCards>();
 
             foreach (var advisorp in advisor)
-
             {
-                var card = await cardCollection.Find(c => c.Card_Id == idAdvisor).ToListAsync();
+                var card = await cardCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
 
                 var advisorWithCard = new AdvisorWithCards
                 {
@@ -109,10 +105,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
                     Cards = _mapper.Map<List<Card>>(card)
 
                 };
-
                 advisorWithCards.Add(advisorWithCard);
             }
-
             return advisorWithCards;
 
         }

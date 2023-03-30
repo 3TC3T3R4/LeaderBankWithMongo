@@ -79,20 +79,6 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
         }
 
         [Fact]
-        public async Task GetAdvisorById()
-        {
-            // Arrange
-            var advisor = new Advisor
-            {
-                Names = "rola",
-                SurNames = "Test",
-                Address = "Test",
-                Email = "" +
-                ""
-            };
-        }
-
-        [Fact]
         public async Task Get_List_Advisor_With_Customers()
         {
             //arrange
@@ -146,7 +132,8 @@ namespace LeaderBank.Mongo.Test.AdvisorTest
             Assert.Equal(listAdvisorWithCustomer, result);
 
         }
-    }
+
+
 
 
         [Fact]
