@@ -72,6 +72,22 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         {
             var customerSave = _mapper.Map<CustomerEntity>(customer);
             await customerCollection.InsertOneAsync(customerSave);
+
+            var createCustomer = new Customer
+            {
+                Id_Advisor = customer.Id_Advisor,
+                Names = customer.Names,
+                Surnames = customer.Surnames,
+                Address = customer.Address,
+                Email = customer.Email,
+                Phone = customer.Phone,
+                Birthdate = customer.Birthdate,
+                Occupation = customer.Occupation,
+                Gender = customer.Gender,
+                State = customer.State
+
+            };
+            Customer.Validate(createCustomer);
             return customer;
         }
     }
