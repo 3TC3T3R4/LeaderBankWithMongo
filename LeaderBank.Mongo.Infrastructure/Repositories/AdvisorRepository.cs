@@ -47,8 +47,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
                 Address = advisor.Address,
                 Email = advisor.Email,
                 Phone = advisor.Phone,
-                Birthdate = advisor.Birthdate,                
-                Gender = advisor.Gender               
+                Birthdate = advisor.Birthdate,
+                Gender = advisor.Gender
 
             };
             Advisor.Validate(createAdvisor);
@@ -70,65 +70,59 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
         {
 
-            var advisors = await advisorCollection.Find(_ => true).ToListAsync() 
+            var advisor = await advisorCollection.Find(a => a.Advisor_Id == idAdvisor).FirstOrDefaultAsync()
                 ?? throw new Exception($"There isn't an advisor with this ID: {idAdvisor}.");
 
             var advisorWithCustomers = new List<AdvisorWithCustomers>();
 
-            foreach (var advisorf in advisors)
-            {
-                var customer = await customerCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
+            var customer = await customerCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
 
-                var advisorWithCustomer = new AdvisorWithCustomers
-                {
-                    Advisor_Id = advisorf.Advisor_Id,
-                    Names = advisorf.Names,
-                    SurNames = advisorf.Surnames,
-                    Address = advisorf.Address,
-                    Email = advisorf.Email,
-                    Phone = advisorf.Phone,
-                    Birthdate = advisorf.Birthdate,
-                    Gender = advisorf.Gender,
-                    Customers = _mapper.Map<List<Customer>>(customer)
-                };
-                advisorWithCustomers.Add(advisorWithCustomer);
-            }
+            var advisorWithCustomer = new AdvisorWithCustomers
+            {
+                Advisor_Id = advisor.Advisor_Id,
+                Names = advisor.Names,
+                SurNames = advisor.Surnames,
+                Address = advisor.Address,
+                Email = advisor.Email,
+                Phone = advisor.Phone,
+                Birthdate = advisor.Birthdate,
+                Gender = advisor.Gender,
+                Customers = _mapper.Map<List<Customer>>(customer)
+            };
+            advisorWithCustomers.Add(advisorWithCustomer);
             return advisorWithCustomers;
         }
 
         public async Task<List<AdvisorWithCards>> GetListAdvisorWithCards(string idAdvisor)
         {
-            var advisor = await advisorCollection.Find(_ => true).ToListAsync() 
+            var advisor = await advisorCollection.Find(a => a.Advisor_Id == idAdvisor).FirstOrDefaultAsync()
                 ?? throw new Exception($"There isn't an advisor with this ID: {idAdvisor}.");
 
             var advisorWithCards = new List<AdvisorWithCards>();
 
-            foreach (var advisorp in advisor)
+            var card = await cardCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
+
+            var advisorWithCard = new AdvisorWithCards
             {
-                var card = await cardCollection.Find(c => c.Id_Advisor == idAdvisor).ToListAsync();
+                Advisor_Id = advisor.Advisor_Id,
+                Names = advisor.Names,
+                SurNames = advisor.Surnames,
+                Address = advisor.Address,
+                Email = advisor.Email,
+                Phone = advisor.Phone,
+                Birthdate = advisor.Birthdate,
+                Gender = advisor.Gender,
+                Cards = _mapper.Map<List<Card>>(card)
 
-                var advisorWithCard = new AdvisorWithCards
-                {
-                    Advisor_Id = advisorp.Advisor_Id,
-                    Names = advisorp.Names,
-                    SurNames = advisorp.Surnames,
-                    Address = advisorp.Address,
-                    Email = advisorp.Email,
-                    Phone = advisorp.Phone,
-                    Birthdate = advisorp.Birthdate,
-                    Gender = advisorp.Gender,
-                    Cards = _mapper.Map<List<Card>>(card)
-
-                };
-                advisorWithCards.Add(advisorWithCard);
-            }
+            };
+            advisorWithCards.Add(advisorWithCard);
             return advisorWithCards;
 
         }
 
         public async Task<AdvisorComplete> GetAdvisorCompleteByIdAsync(string id)
         {
-            var advisor = await advisorCollection.Find(ad => ad.Advisor_Id == id).FirstOrDefaultAsync() 
+            var advisor = await advisorCollection.Find(ad => ad.Advisor_Id == id).FirstOrDefaultAsync()
                 ?? throw new Exception($"There isn't an advisor with this ID: {id}.");
 
             var advisorComplete = _mapper.Map<AdvisorComplete>(advisor);
