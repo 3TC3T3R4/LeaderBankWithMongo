@@ -19,5 +19,6 @@ namespace LeaderBank.Mongo.Domain.Entities
         public string Occupation { get; set; }
         public string Gender { get; set; }
         public bool State { get; set; }
+       
     }
 }
