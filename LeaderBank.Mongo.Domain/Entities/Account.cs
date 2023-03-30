@@ -11,7 +11,28 @@
         public DateTime OpenDate { get; set; }
         public DateTime? CloseDate { get; set; }
         public decimal ManagementCost { get; set; }
-        public bool AccountState { get; set; }        
-        
+        public bool AccountState { get; set; }
+
+        public Account() { }
+
+        //validate account
+        public bool Validate()
+        {
+            if (Id_Customer == null) return false;
+            if (Id_Card == null) return false;
+            if (Id_Advisor == null) return false;
+            if (AccountType == null) return false;
+            if (OpenDate == null) return false;
+            if (AccountState == false) return false;
+            return true;
+        }
+
+        public static Account SetDetailsAccount(Account account)
+        {
+            account.OpenDate = DateTime.Now;
+            account.CloseDate = null;
+            account.AccountState = true;
+            return account;
+        }
     }
 }
