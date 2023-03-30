@@ -1,8 +1,8 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace LeaderBank.Mongo.Infrastructure.Entities
+namespace LeaderBank.Mongo.Infrastructure.Entities.Wrappers.AdvisorComplete
 {
-    public class AdvisorEntity
+    public class AdvisorCompleteEntity
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
@@ -14,5 +14,6 @@ namespace LeaderBank.Mongo.Infrastructure.Entities
         public string Phone { get; set; }
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
+        public List<CustomerComplete.CustomerCompleteEntity> Customers { get; set; } = new();
     }
 }

@@ -42,7 +42,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
 
             var accounts = accountCollection.Aggregate()
                 .Match(a => a.Id_Customer == id)
-                .Lookup<AccountEntity, TransactionEntity, AccountCompleteEntity>(transactionCollection, a => a.Account_Id, t => t.Id_Account, (AccountCompleteEntity ac) => ac.Transactions)
+                .Lookup<AccountEntity, TransactionEntity, AccountCompleteEntity>(transactionCollection, a => a.Account_Id, 
+                        t => t.Id_Account, (AccountCompleteEntity ac) => ac.Transactions)
                 .ToList();
 
             foreach (var account in accounts)

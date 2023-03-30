@@ -8,6 +8,5 @@ namespace LeaderBank.Mongo.Domain.UseCases.Gateway
         Task<Customer> AddCustomer(Customer customer);
         Task<List<Customer>> GetListCustomers();
         Task<CustomerComplete> GetCustomerCompleteByIdAsync(string id);
-
     }
 }

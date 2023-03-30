@@ -10,6 +10,5 @@
         public string Phone { get; set; }
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
-
     }
 }

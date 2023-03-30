@@ -1,18 +1,17 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 
-namespace LeaderBank.Mongo.Infrastructure.Entities
+namespace LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor
 {
-    public class AdvisorEntity
+    public class AdvisorComplete // with customers
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]//CAMELCASE 
         public string Advisor_Id { get; set; }
         public string Names { get; set; }
-        public string Surnames { get; set; }
+        public string SurNames { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
+        public List<CustomerComplete> Customers { get; set; }
     }
 }

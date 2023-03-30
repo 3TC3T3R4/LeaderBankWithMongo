@@ -3,7 +3,6 @@ using LeaderBank.Mongo.Domain.Commands;
 using LeaderBank.Mongo.Domain.Entities;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
-using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,19 +33,24 @@ namespace LeaderBank.Mongo.API.Controllers
         {
             return await _advisorUseCase.AddAdvisor(_mapper.Map<Advisor>(command));
         }
-      
-        [HttpGet("idAdvice/")]
+
+        [HttpGet("AdvisorWithCustomers")]
         public async Task<List<AdvisorWithCustomers>> Get_List_Advisor_With_Customers(string idAdvisor)
         {
             return await _advisorUseCase.GetListAdvisorWithCustomers(idAdvisor);
         }
 
-        [HttpGet("idAdviceWithCard/")]
+        [HttpGet("AdvisorWithCards")]
 
         public async Task<List<AdvisorWithCards>> Get_List_Advisor_With_Cards(string idAdvisor)
         {
             return await _advisorUseCase.GetListAdvisorWithCards(idAdvisor);
-        }     
-       
+        }
+
+        [HttpGet("AdvisorComplete/{id}")]
+        public async Task<AdvisorComplete> Get_Advisor_Complete(string id)
+        {
+            return await _advisorUseCase.GetAdvisorCompleteByIdAsync(id);
+        }
     }
 }

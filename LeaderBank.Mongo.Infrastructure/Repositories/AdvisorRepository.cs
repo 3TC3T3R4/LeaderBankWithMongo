@@ -5,10 +5,9 @@ using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 using LeaderBank.Mongo.Infrastructure.Entities;
+using LeaderBank.Mongo.Infrastructure.Entities.Wrappers.CustomerComplete;
 using LeaderBank.Mongo.Infrastructure.Interfaces;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Core.Configuration;
 
 namespace LeaderBank.Mongo.Infrastructure.Repositories
 {
@@ -16,15 +15,18 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
     {
         private readonly IMongoCollection<AdvisorEntity> advisorCollection;
         private readonly IMongoCollection<CustomerEntity> customerCollection;
+        private readonly IMongoCollection<AccountEntity> accountCollection;
         private readonly IMongoCollection<CardEntity> cardCollection;
-
+        private readonly IMongoCollection<TransactionEntity> transactionCollection;
         private readonly IMapper _mapper;
-      
 
         public AdvisorRepository(IContext context, IMapper mapper)
         {
             advisorCollection = context.Advisors;
             customerCollection = context.Customers;
+            accountCollection = context.Accounts;
+            cardCollection = context.Cards;
+            transactionCollection = context.Transactions;
             _mapper = mapper;
         }
 
@@ -53,8 +55,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         }
 
         public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
-        {          
-           
+        {
+
             var advisors = await advisorCollection.Find(_ => true).ToListAsync();
 
             var advisorWithCustomers = new List<AdvisorWithCustomers>();
@@ -75,8 +77,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
                     Birthdate = advisorf.Birthdate,
                     Gender = advisorf.Gender,
                     Customers = _mapper.Map<List<Customer>>(customer)
-
-            };
+                };
 
                 advisorWithCustomers.Add(advisorWithCustomer);
             }
@@ -84,7 +85,7 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
             return advisorWithCustomers;
         }
 
-        public async Task<List<AdvisorWithCards>> GetListAdvisorWithCards(string idAdvisor) 
+        public async Task<List<AdvisorWithCards>> GetListAdvisorWithCards(string idAdvisor)
         {
             var advisor = await advisorCollection.Find(_ => true).ToListAsync();
 
@@ -116,5 +117,37 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
 
         }
 
+        public async Task<AdvisorComplete> GetAdvisorCompleteByIdAsync(string id)
+        {
+            var advisor = await advisorCollection.Find(ad => ad.Advisor_Id == id).FirstOrDefaultAsync();
+            var advisorComplete = _mapper.Map<AdvisorComplete>(advisor);
+
+            var customers = await customerCollection.Find(c => c.Id_Advisor == id).ToListAsync();
+            var customersComplete = _mapper.Map<List<CustomerComplete>>(customers);
+
+            foreach (var customer in customersComplete)
+            {
+                var accounts = accountCollection.Aggregate()
+                    .Match(a => a.Id_Advisor == id && a.Id_Customer == customer.Customer_Id)
+                    .Lookup<AccountEntity, TransactionEntity, AccountCompleteEntity>(transactionCollection, a => a.Account_Id,
+                            t => t.Id_Account, (AccountCompleteEntity ac) => ac.Transactions)
+                    .ToList();
+                foreach (var account in accounts)
+                {
+                    foreach (var transaction in account.Transactions)
+                    {
+                        _mapper.Map<Transaction>(transaction);
+                    }
+                    _mapper.Map<AccountComplete>(account);
+                    var card = await cardCollection.Find(c => c.Card_Id == account.Id_Card).FirstOrDefaultAsync();
+                    _mapper.Map<Card>(card);
+                    account.Card = card;
+                }
+                customer.Accounts = _mapper.Map<List<AccountComplete>>(accounts);
+            }
+
+            advisorComplete.Customers = customersComplete;
+            return advisorComplete;
+        }
     }
 }

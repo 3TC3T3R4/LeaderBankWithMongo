@@ -1,7 +1,6 @@
 ﻿using LeaderBank.Mongo.Domain.Entities;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisors;
-using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Domain.UseCases.Gateway;
 using LeaderBank.Mongo.Domain.UseCases.Gateway.Repositories;
 
@@ -33,6 +32,11 @@ namespace LeaderBank.Mongo.Domain.UseCases.UseCases
         public async Task<List<AdvisorWithCards>> GetListAdvisorWithCards(string idAdvisor)
         {
             return await _advisorRepository.GetListAdvisorWithCards(idAdvisor);
+        }
+
+        public async Task<AdvisorComplete> GetAdvisorCompleteByIdAsync(string id)
+        {
+            return await _advisorRepository.GetAdvisorCompleteByIdAsync(id);
         }
     }
 }

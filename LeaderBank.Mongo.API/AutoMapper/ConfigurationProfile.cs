@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using LeaderBank.Mongo.Domain.Commands;
 using LeaderBank.Mongo.Domain.Entities;
+using LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor;
 using LeaderBank.Mongo.Domain.Entities.Wrappers.Customer;
 using LeaderBank.Mongo.Infrastructure.Entities;
+using LeaderBank.Mongo.Infrastructure.Entities.Wrappers.AdvisorComplete;
 using LeaderBank.Mongo.Infrastructure.Entities.Wrappers.CustomerComplete;
 
 namespace LeaderBank.Mongo.API.AutoMapper
@@ -16,6 +18,8 @@ namespace LeaderBank.Mongo.API.AutoMapper
 
             CreateMap<NewAdvisor, Advisor>().ReverseMap();
             CreateMap<AdvisorEntity, Advisor>().ReverseMap();
+            CreateMap<AdvisorEntity, AdvisorComplete>().ReverseMap();
+            CreateMap<AdvisorCompleteEntity, AdvisorComplete>().ReverseMap();
 
             CreateMap<NewCard, Card>().ReverseMap();
             CreateMap<CardEntity, Card>().ReverseMap();
