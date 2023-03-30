@@ -30,14 +30,17 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
 
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.State, true);
             var customer = await customerCollection.FindAsync(filter);
-            var listCustomer = customer.ToEnumerable().Select(client => _mapper.Map<Customer>(client)).ToList();
+            var listCustomer = customer.ToEnumerable().Select(client => _mapper.Map<Customer>(client)).ToList()
+                ?? throw new Exception($"There aren't customers to show.");
 
             return listCustomer;
         }
 
         public async Task<CustomerComplete> GetCustomerCompleteByIdAsync(string id)
         {
-            var customer = await customerCollection.Find(c => c.Customer_Id == id).FirstOrDefaultAsync();
+            var customer = await customerCollection.Find(c => c.Customer_Id == id).FirstOrDefaultAsync()
+                ?? throw new Exception($"There isn't a customer with this ID: {id}.");
+
             var customerComplete = _mapper.Map<CustomerComplete>(customer);
 
             var accounts = accountCollection.Aggregate()
@@ -53,7 +56,10 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
                     _mapper.Map<Transaction>(transaction);
                 }
                 _mapper.Map<AccountComplete>(account);
-                var card = await cardCollection.Find(c => c.Card_Id == account.Id_Card).FirstOrDefaultAsync();
+
+                var card = await cardCollection.Find(c => c.Card_Id == account.Id_Card).FirstOrDefaultAsync()
+                    ?? throw new Exception($"There isn't a card with this ID: {account.Id_Card}.");
+
                 _mapper.Map<Card>(card);
                 account.Card = card;
             }

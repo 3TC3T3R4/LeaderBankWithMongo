@@ -57,7 +57,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
         public async Task<List<AdvisorWithCustomers>> GetListAdvisorWithCustomers(string idAdvisor)
         {
 
-            var advisors = await advisorCollection.Find(_ => true).ToListAsync() ?? throw new Exception($"please add advisor information.");
+            var advisors = await advisorCollection.Find(_ => true).ToListAsync() 
+                ?? throw new Exception($"There isn't an advisor with this ID: {idAdvisor}.");
 
             var advisorWithCustomers = new List<AdvisorWithCustomers>();
 
@@ -84,7 +85,8 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
 
         public async Task<List<AdvisorWithCards>> GetListAdvisorWithCards(string idAdvisor)
         {
-            var advisor = await advisorCollection.Find(_ => true).ToListAsync();
+            var advisor = await advisorCollection.Find(_ => true).ToListAsync() 
+                ?? throw new Exception($"There isn't an advisor with this ID: {idAdvisor}.");
 
             var advisorWithCards = new List<AdvisorWithCards>();
 
@@ -113,10 +115,13 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
 
         public async Task<AdvisorComplete> GetAdvisorCompleteByIdAsync(string id)
         {
-            var advisor = await advisorCollection.Find(ad => ad.Advisor_Id == id).FirstOrDefaultAsync();
+            var advisor = await advisorCollection.Find(ad => ad.Advisor_Id == id).FirstOrDefaultAsync() 
+                ?? throw new Exception($"There isn't an advisor with this ID: {id}.");
+
             var advisorComplete = _mapper.Map<AdvisorComplete>(advisor);
 
             var customers = await customerCollection.Find(c => c.Id_Advisor == id).ToListAsync();
+
             var customersComplete = _mapper.Map<List<CustomerComplete>>(customers);
 
             foreach (var customer in customersComplete)
@@ -133,13 +138,15 @@ namespace LeaderBank.Mongo.Infrastructure.Repositories
                         _mapper.Map<Transaction>(transaction);
                     }
                     _mapper.Map<AccountComplete>(account);
-                    var card = await cardCollection.Find(c => c.Card_Id == account.Id_Card).FirstOrDefaultAsync();
+
+                    var card = await cardCollection.Find(c => c.Card_Id == account.Id_Card).FirstOrDefaultAsync()
+                        ?? throw new Exception($"There isn't a card with this ID: {account.Id_Card}.");
+
                     _mapper.Map<Card>(card);
                     account.Card = card;
                 }
                 customer.Accounts = _mapper.Map<List<AccountComplete>>(accounts);
             }
-
             advisorComplete.Customers = customersComplete;
             return advisorComplete;
         }
