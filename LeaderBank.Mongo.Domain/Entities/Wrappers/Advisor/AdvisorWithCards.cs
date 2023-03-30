@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor
 {
@@ -16,7 +12,7 @@ namespace LeaderBank.Mongo.Domain.Entities.Wrappers.Advisor
         public string Phone { get; set; }
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
-        public List<Card> Cards { get; set; }
+        public List<Entities.Card> Cards { get; set; }
 
     }
 }
